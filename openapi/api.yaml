@@ -1,0 +1,100 @@
+openapi: '3.0.3'
+info:
+  title: 'Alarm Account API'
+  version: '1.0.0'
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /accounts:
+    get:
+      summary: Returns all accounts
+      operationId: getAccounts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json :
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+    post:
+      summary: New account creation
+      operationId: createAccount
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json :
+              schema:
+                $ref: '#/components/schemas/NewAccount'
+  /accounts/{id}:
+    get:
+      summary: Returns a specific account
+      operationId: getAccountById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json :
+              schema:
+                $ref: '#/components/schemas/Account'
+    put:
+      summary: Update an account
+      operationId: updateAccount
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAccount'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    delete:
+      summary: Delete an Account
+      operationId: deleteAccount
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successful response
+
+components:
+  schemas:
+    Account:
+      type: 'object'
+      properties:
+        id:
+          type: 'integer'
+        username:
+          type: 'string'
+        phone:
+          type: 'string'
+    NewAccount:
+      type: 'object'
+      properties:
+        username:
+          type: 'string'
+        phone:
+          type: 'string'
