@@ -96,7 +96,6 @@ func (a AccountAPI) UpdateAccount(c *gin.Context, id string) {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
-	//var newAccount api.NewAccount
 	if err := c.ShouldBindBodyWithJSON(&acc); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -107,8 +106,6 @@ func (a AccountAPI) UpdateAccount(c *gin.Context, id string) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	//(*acc).Username = *newAccount.Username
-	//(*acc).Phone = *newAccount.Phone
 	c.JSON(http.StatusOK, api.Account{
 		Id:       &acc.UserID,
 		Username: &acc.Username,
